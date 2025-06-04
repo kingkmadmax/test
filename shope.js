@@ -3,7 +3,7 @@ const products = [
   { id: 1, name: 'Laptop', price: 1000, stock: 5,catagory:'electronics' },
   { id: 2, name: 'Phone', price: 500, stock: 10,catagory:'electronics' },
   { id: 3, name: 'Headphones', price: 150, stock: 15,catagory:'electronics' },
-  { id: 4, name:'car', price:50.000, stock:34,catagory:'electronics' },
+  { id: 4, name:'car', price:50000, stock:34,catagory:'electronics' },
   { id: 5, name:'sweeter', price:50, stock:34,catagory:'cloth' },
   { id: 6, name:'hat', price:50, stock:34,catagory:'cloth' }
 ];
@@ -74,3 +74,7 @@ function showInventory() {
     console.log(`${p.name} - Stock: ${p.stock}`);
   });
 }
+addToCart(1, 2);
+viewCart();
+checkout();
+showInventory();
