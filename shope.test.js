@@ -34,3 +34,19 @@ beforeEach(() => {
   };
 });
 
+beforeEach(() => {
+  jest.spyOn(console, 'log').mockImplementation(() => {}); // Mock console.log
+});
+
+afterEach(() => {
+  jest.restoreAllMocks(); // Restore console.log after each test
+});
+
+test('adds product to cart with correct message', () => {
+  addToCart(1, 2);
+  expect(cart.length).toBe(1);
+  expect(cart[0].product.name).toBe('Laptop');
+  expect(cart[0].quantity).toBe(2);
+  expect(console.log).toHaveBeenCalledWith('2 x Laptop added to cart.');
+});
+
