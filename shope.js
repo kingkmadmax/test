@@ -74,7 +74,3 @@ function showInventory() {
     console.log(`${p.name} - Stock: ${p.stock}`);
   });
 }
-addToCart(1, 2);
-viewCart();
-checkout();
-showInventory();
