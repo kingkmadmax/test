@@ -64,3 +64,8 @@ test('fails to add product due to low stock', () => {
   expect(console.log).toHaveBeenCalledWith('Not enough stock available.');
 });
 
+test('fails to add non-existent product', () => {
+  addToCart(999, 1);
+  expect(cart.length).toBe(0);
+  expect(console.log).toHaveBeenCalledWith('Product not found.');
+});
