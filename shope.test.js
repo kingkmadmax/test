@@ -50,3 +50,10 @@ test('adds product to cart with correct message', () => {
   expect(console.log).toHaveBeenCalledWith('2 x Laptop added to cart.');
 });
 
+test('adds same product again to update quantity', () => {
+  addToCart(1, 2);
+  addToCart(1, 1);
+  expect(cart.length).toBe(1);
+  expect(cart[0].quantity).toBe(3);
+  expect(console.log).toHaveBeenLastCalledWith('1 x Laptop added to cart.');
+});
