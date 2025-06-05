@@ -57,3 +57,10 @@ test('adds same product again to update quantity', () => {
   expect(cart[0].quantity).toBe(3);
   expect(console.log).toHaveBeenLastCalledWith('1 x Laptop added to cart.');
 });
+
+test('fails to add product due to low stock', () => {
+  addToCart(1, 10);
+  expect(cart.length).toBe(0);
+  expect(console.log).toHaveBeenCalledWith('Not enough stock available.');
+});
+
