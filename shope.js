@@ -74,3 +74,13 @@ function showInventory() {
     console.log(`${p.name} - Stock: ${p.stock}`);
   });
 }
+
+
+module.exports = {
+  addToCart,
+  viewCart,
+  checkout,
+  showInventory,
+
+  cart, // <-- if you're using it in tests
+};
