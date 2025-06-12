@@ -11,7 +11,7 @@ test('shows that it doesn’t show wrong values', () => {
   expect(cart[0].quantity).toBe(2); 
 });
 
-test('to show the viewCart is working', () => {
+test('to show the viewCart is working if thre not any items in the cart', () => {
   jest.spyOn(console, 'log').mockImplementation(() => {}); 
 
   // Add something before viewing
@@ -22,3 +22,10 @@ test('to show the viewCart is working', () => {
 
   console.log.mockRestore();
 });
+test('to show viewCart is working if there intams in the cart',()=>{
+  jest.spyOn(console,'log').mockImplementation(()=>{});
+  addToCart(1, 2);
+  viewCart();
+  expect(console.log).toHaveBeenCalledWith('Laptop - Qty: 2 - Total: $2000')
+
+})
