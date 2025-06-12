@@ -28,4 +28,19 @@ test('to show viewCart is working if there intams in the cart',()=>{
   viewCart();
   expect(console.log).toHaveBeenCalledWith('Laptop - Qty: 2 - Total: $2000')
 
+});
+test('to show Inventory  is empty',()=>{
+  jest.spyOn(console,'log').mockImplementation(()=>{});
+ 
+  showInventory ();
+  expect(console.log).toHaveBeenCalledWith('Cart Contents:')
+
+
+});
+test('to showInventory is working if there intams in the cart',()=>{
+  jest.spyOn(console,'log').mockImplementation(()=>{});
+  addToCart(1, 2);
+  showInventory();
+  expect(console.log).toHaveBeenCalledWith('Laptop - Qty: 2 - Total: $2000')
+
 })
