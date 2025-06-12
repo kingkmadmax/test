@@ -84,4 +84,3 @@ module.exports = {
 
   cart, // <-- if you're using it in tests
 };
-viewCart()
