@@ -98,4 +98,38 @@ function checkout() {
       return;
     }
     total += item.quantity * item.product.price;
-  }}
+  }
+
+  for (const item of cart) {
+    item.product.stock -= item.quantity;
+  }
+
+  console.log(`Order placed successfully! Total: $${total}`);
+  cart = []; // clear cart
+}
+
+function showInventory() {
+  console.log('Current Inventory:');
+  products.forEach(p => {
+    console.log(`${p.name} - Stock: ${p.stock}`);
+  });
+}
+
+// Exporting all
+module.exports = {
+  // Product CRUD
+  createProduct,
+  listProducts,
+  updateProduct,
+  deleteProduct,
+
+  // Cart
+  addToCart,
+  viewCart,
+  checkout,
+  showInventory,
+
+  // Useful for testing
+  cart,
+  products
+};
