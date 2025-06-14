@@ -1,17 +1,61 @@
 // PRODUCTS (Database Simulation)
-const products = [
-  { id: 1, name: 'Laptop', price: 1000, stock: 5,catagory:'electronics' },
-  { id: 2, name: 'Phone', price: 500, stock: 10,catagory:'electronics' },
-  { id: 3, name: 'Headphones', price: 150, stock: 15,catagory:'electronics' },
-  { id: 4, name:'car', price:50000, stock:34,catagory:'electronics' },
-  { id: 5, name:'sweeter', price:50, stock:34,catagory:'cloth' },
-  { id: 6, name:'hat', price:50, stock:34,catagory:'cloth' }
+let products = [
+  { id: 1, name: 'Laptop', price: 1000, stock: 5, category: 'electronics' },
+  { id: 2, name: 'Phone', price: 500, stock: 10, category: 'electronics' },
+  { id: 3, name: 'Headphones', price: 150, stock: 15, category: 'electronics' },
+  { id: 4, name: 'car', price: 50000, stock: 34, category: 'electronics' },
+  { id: 5, name: 'sweater', price: 50, stock: 34, category: 'cloth' },
+  { id: 6, name: 'hat', price: 50, stock: 34, category: 'cloth' }
 ];
 
 // CART
 let cart = [];
 
-// Add product to cart
+// ----- CRUD for Products -----
+
+// CREATE
+function createProduct(product) {
+  const exists = products.some(p => p.id === product.id);
+  if (exists) {
+    console.log(`Product with ID ${product.id} already exists.`);
+    return;
+  }
+  products.push(product);
+  console.log(`Product "${product.name}" added.`);
+}
+
+// READ
+function listProducts() {
+  console.log('Product List:');
+  products.forEach(p => {
+    console.log(`ID: ${p.id} | ${p.name} - $${p.price} | Stock: ${p.stock} | Category: ${p.category}`);
+  });
+}
+
+// UPDATE
+function updateProduct(id, updatedFields) {
+  const product = products.find(p => p.id === id);
+  if (!product) {
+    console.log(`Product with ID ${id} not found.`);
+    return;
+  }
+  Object.assign(product, updatedFields);
+  console.log(`Product ID ${id} updated.`);
+}
+
+// DELETE
+function deleteProduct(id) {
+  const index = products.findIndex(p => p.id === id);
+  if (index === -1) {
+    console.log(`Product with ID ${id} not found.`);
+    return;
+  }
+  const deleted = products.splice(index, 1)[0];
+  console.log(`Product "${deleted.name}" deleted.`);
+}
+
+// ----- Cart Operations -----
+
 function addToCart(productId, quantity) {
   const product = products.find(p => p.id === productId);
   if (!product) {
@@ -34,7 +78,6 @@ function addToCart(productId, quantity) {
   console.log(`${quantity} x ${product.name} added to cart.`);
 }
 
-// View cart
 function viewCart() {
   console.log('Cart Contents:');
   cart.forEach(item => {
@@ -42,7 +85,6 @@ function viewCart() {
   });
 }
 
-// Checkout
 function checkout() {
   if (cart.length === 0) {
     console.log('Cart is empty.');
@@ -56,31 +98,4 @@ function checkout() {
       return;
     }
     total += item.quantity * item.product.price;
-  }
-
-  // Deduct stock
-  for (const item of cart) {
-    item.product.stock -= item.quantity;
-  }
-
-  console.log(`Order placed successfully! Total: $${total}`);
-  cart = []; // clear cart
-}
-
-// Inventory after order
-function showInventory() {
-  console.log('Current Inventory:');
-  products.forEach(p => {
-    console.log(`${p.name} - Stock: ${p.stock}`);
-  });
-}
-
-
-module.exports = {
-  addToCart,
-  viewCart,
-  checkout,
-  showInventory,
-
-  cart, // <-- if you're using it in tests
-};
+  }}
