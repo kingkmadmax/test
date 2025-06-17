@@ -133,3 +133,4 @@ module.exports = {
   cart,
   products
 };
+listProducts()
