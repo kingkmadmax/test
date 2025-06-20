@@ -17,49 +17,6 @@ let products = [
 
 let cart = [];
 
-
-
-function createProduct(product) {
-  const exists = products.some(p => p.id === product.id);
-  if (exists) {
-    console.log(`Product with ID ${product.id} already exists.`);
-    return;
-  }
-  products.push(product);
-  console.log(`Product "${product.name}" added.`);
-}
-
-
-function listProducts() {
-  console.log('Product List:');
-  products.forEach(p => {
-    console.log(`ID: ${p.id} | ${p.name} - $${p.price} | Stock: ${p.stock} | Category: ${p.category}`);
-  });
-}
-
-
-function updateProduct(id, updatedFields) {
-  const product = products.find(p => p.id === id);
-  if (!product) {
-    console.log(`Product with ID ${id} not found.`);
-    return;
-  }
-  Object.assign(product, updatedFields);
-  console.log(`Product ID ${id} updated.`);
-}
-
-
-function deleteProduct(id) {
-  const index = products.findIndex(p => p.id === id);
-  if (index === -1) {
-    console.log(`Product with ID ${id} not found.`);
-    return;
-  }
-  const deleted = products.splice(index, 1)[0];
-  console.log(`Product "${deleted.name}" deleted.`);
-}
- 
-
 function addToCart(productId, quantity) {
   const product = products.find(p => p.id === productId);
   if (!product) {
@@ -109,7 +66,7 @@ function checkout() {
   }
 
   console.log(`Order placed successfully! Total: $${total}`);
-  cart = []; // clear cart
+  cart = []; // 
 }
 
 function showInventory() {
@@ -118,6 +75,49 @@ function showInventory() {
     console.log(`${p.name} - Stock: ${p.stock}`);
   });
 }
+
+function createProduct(product) {
+  const exists = products.some(p => p.id === product.id);
+  if (exists) {
+    console.log(`Product with ID ${product.id} already exists.`);
+    return;
+  }
+  products.push(product);
+  console.log(`Product "${product.name}" added.`);
+}
+
+
+function listProducts() {
+  console.log('Product List:');
+  products.forEach(p => {
+    console.log(`ID: ${p.id} | ${p.name} - $${p.price} | Stock: ${p.stock} | Category: ${p.category}`);
+  });
+}
+
+
+function updateProduct(id, updatedFields) {
+  const product = products.find(p => p.id === id);
+  if (!product) {
+    console.log(`Product with ID ${id} not found.`);
+    return;
+  }
+  Object.assign(product, updatedFields);
+  console.log(`Product ID ${id} updated.`);
+}
+
+function deleteProduct(id) {
+  const index = products.findIndex(p => p.id === id);
+  if (index === -1) {
+    console.log(`Product with ID ${id} not found.`);
+    return;
+  }
+  const deleted = products.splice(index, 1)[0];
+  console.log(`Product "${deleted.name}" deleted.`);
+}
+
+ 
+
+
 
 // Exporting all
 module.exports = {
