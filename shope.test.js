@@ -1,4 +1,15 @@
-const { checkout, viewCart, addToCart, cart, showInventory } = require('./shope');
+const { checkout, viewCart, addToCart, cart,products, showInventory } = require('./shope');
+
+beforeEach(() => {
+  cart.length = 0;
+
+
+  products.forEach(p => {
+    if (p.id === 1) p.stock = 5;
+    if (p.id === 2) p.stock = 10;
+    if (p.id === 3) p.stock = 15;
+  });
+});
 
 test('checkout if there is no value', () => {
   checkout();
@@ -39,8 +50,38 @@ test('to show Inventory  is empty',()=>{
 });
 test('to showInventory is working if there intams in the cart',()=>{
   jest.spyOn(console,'log').mockImplementation(()=>{});
-  addToCart(1, 2);
+  addToCart(5, 2);
   showInventory();
   expect(console.log).toHaveBeenCalledWith('Laptop - Qty: 2 - Total: $2000')
 
 })
+describe('Cart Operations', () => {
+
+  test('should not add to cart if product not found', () => {
+    console.log = jest.fn();
+    addToCart(999, 1);
+    expect(console.log).toHaveBeenCalledWith('Product not found.');
+    expect(cart.length).toBe(0);
+  });
+
+  test('should not add to cart if stock is insufficient', () => {
+    console.log = jest.fn();
+    addToCart(1, 99);
+    expect(console.log).toHaveBeenCalledWith('Not enough stock available.');
+    expect(cart.length).toBe(0);
+  });
+
+  test('should complete checkout and deduct stock', () => {
+    addToCart(2, 2);
+    checkout();
+    expect(products.find(p => p.id === 2).stock).toBe(8);
+    expect(cart.length).toBe(0);
+  });
+
+  test('should show warning if stock is insufficient at checkout', () => {
+    console.log = jest.fn();
+    addToCart(2, 11); // Only 10 in stock
+    checkout();
+    expect(console.log).toHaveBeenCalledWith('Not enough stock available.');
+  });
+});

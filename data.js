@@ -17,3 +17,4 @@ let User =[
     {id:5,name:'dagm',age:23},
     {id:6,name:'tensu',age:12}
 ]
+let cart=[];
