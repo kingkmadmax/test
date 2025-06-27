@@ -1,4 +1,4 @@
-const { checkout, viewCart, addToCart, deleteProduct, updateProduct, cart,products, showInventory } = require('./shope');
+const { checkout, viewCart, addToCart,listProducts, createProduct,deleteProduct, updateProduct, cart,products, showInventory } = require('./shope');
 
 describe('Cart Operations', () => {
   beforeEach(() => {
@@ -107,6 +107,53 @@ test('to showInventory is working if there intams in the cart',()=>{
     addToCart(1, 99);
     expect(console.log).toHaveBeenCalledWith('Not enough stock available.');
     expect(cart.length).toBe(0);
+  });
+   test('prints all products in the list', () => {
+    const logSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+
+    listProducts();
+
+    expect(logSpy).toHaveBeenCalledWith('Product List:');
+
+    products.forEach(p => {
+      expect(logSpy).toHaveBeenCalledWith(
+        `ID: ${p.id} | ${p.name} - $${p.price} | Stock: ${p.stock} | Category: ${p.category}`
+      );
+    });
+
+    logSpy.mockRestore();
+  });
+  test('adds a valid product', () => {
+    const newProduct = {
+      id: 99,
+      name: 'Tablet',
+      price: 300,
+      stock: 10,
+      category: 'electronics'
+    };
+
+    createProduct(newProduct);
+
+    const addedProduct = products.find(p => p.id === 99);
+    expect(addedProduct).toEqual(newProduct);
+    expect(products.length).toBe(originalLength + 1);
+  });
+
+  test('does not add a product with duplicate ID', () => {
+    console.log = jest.fn();
+
+    const duplicate = {
+      id: 1, // already exists in products
+      name: 'Duplicate Laptop',
+      price: 500,
+      stock: 5,
+      category: 'electronics'
+    };
+
+    createProduct(duplicate);
+
+    expect(console.log).toHaveBeenCalledWith('Product with ID 1 already exists.');
+    expect(products.length).toBe(originalLength);
   });
 
 

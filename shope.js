@@ -2,29 +2,28 @@
 const products = require('./product'); 
 let cart = [];
 
-//mane function
+//mean function
+function createProduct(newProduct) {
+  const requiredFields = ['id', 'name', 'price', 'stock', 'category'];
 
-function addToCart(productId, quantity) {
-  const product = products.find(p => p.id === productId);
-  if (!product) {
-    console.log('Product not found.');
+  for (const field of requiredFields) {
+    if (!(field in newProduct)) {
+      console.log(`Missing required field: ${field}`);
+      return;
+    }
+  }
+
+  const exists = products.some(p => p.id === newProduct.id);
+  if (exists) {
+    console.log(`Product with ID ${newProduct.id} already exists.`);
     return;
   }
 
-  if (product.stock < quantity) {
-    console.log('Not enough stock available.');
-    return;
-  }
-
-  const existing = cart.find(item => item.product.id === productId);
-  if (existing) {
-    existing.quantity += quantity;
-  } else {
-    cart.push({ product, quantity });
-  }
-
-  console.log(`${quantity} x ${product.name} added to cart.`);
+  products.push(newProduct);
+  console.log(`Product "${newProduct.name}" added.`);
 }
+
+
 function listProducts() {
   console.log('Product List:');
   products.forEach(p => {
@@ -53,7 +52,27 @@ function deleteProduct(id) {
 }
 
 // extra functions
-function viewCart() {
+function addToCart(productId, quantity) {
+  const product = products.find(p => p.id === productId);
+  if (!product) {
+    console.log('Product not found.');
+    return;
+  }
+
+  if (product.stock < quantity) {
+    console.log('Not enough stock available.');
+    return;
+  }
+
+  const existing = cart.find(item => item.product.id === productId);
+  if (existing) {
+    existing.quantity += quantity;
+  } else {
+    cart.push({ product, quantity });
+  }
+
+  console.log(`${quantity} x ${product.name} added to cart.`);
+}function viewCart() {
   console.log('Cart Contents:');
   cart.forEach(item => {
     console.log(`${item.product.name} - Qty: ${item.quantity} - Total: $${item.quantity * item.product.price}`);
@@ -97,6 +116,7 @@ function showInventory() {
 
 
 module.exports = {
+  createProduct,
   listProducts,
   updateProduct,
   deleteProduct,

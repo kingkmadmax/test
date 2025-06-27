@@ -11,7 +11,11 @@ Yes, **Jest** is written in and used with **JavaScript**. It is widely used to t
 ---
 
 ## Test Folder Structure
-
+product.js 
+to helpe as a database
+shope.test.js
+were our test
+ file is stored
 
 ---
 
@@ -89,7 +93,5 @@ You can write tests for:
 - Removing items from the cart  
 - Ensuring totals and inventory update correctly
 
----
 
-Let me know if you want me to generate the sample `shop.js` and `shop.test.js` code files as well!
 
