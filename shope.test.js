@@ -41,7 +41,7 @@ test('to show the viewCart is working if thre not any items in the cart', () => 
   viewCart();
 
   expect(console.log).toHaveBeenCalledWith('Cart Contents:');
-
+ 
 
   console.log.mockRestore();
 });

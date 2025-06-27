@@ -1,21 +1,7 @@
-// PRODUCTS (Database Simulation)
-let products = [
-  { id: 1, name: 'Laptop', price: 1000, stock: 5, category: 'electronics' },
-  { id: 2, name: 'Phone', price: 500, stock: 10, category: 'electronics' },
-  { id: 3, name: 'Headphones', price: 150, stock: 15, category: 'electronics' },
-  { id: 4, name: 'car', price: 50000, stock: 34, category: 'electronics' },
-  { id: 5, name: 'sweater', price: 50, stock: 34, category: 'cloth' },
-  { id: 6, name: 'hat', price: 50, stock: 34, category: 'cloth' },
-  { id:7,name:'hat',price:34,category: 'close', stock: 50},
-    {id:8,name: 'Laptop', price: 1000, stock: 5, category: 'electronics' },
-    {id:9,name: 'Phone', price: 500, stock: 10, category: 'electronics' },
-    {id:10,name: 'Headphones', price: 150, stock: 15, category: 'electronics' },
-    {id:11,name: 'car', price: 50000, stock: 34, category: 'electronics' },
-    {id:12,name: 'sweater', price: 50, stock: 34, category: 'cloth' },
-];
 
-
+const products = require('./product'); 
 let cart = [];
+
 
 function addToCart(productId, quantity) {
   const product = products.find(p => p.id === productId);
@@ -66,7 +52,7 @@ function checkout() {
   }
 
   console.log(`Order placed successfully! Total: $${total}`);
-  cart = []; // 
+  cart = [];
 }
 
 function showInventory() {
@@ -76,15 +62,7 @@ function showInventory() {
   });
 }
 
-function createProduct(product) {
-  const exists = products.some(p => p.id === product.id);
-  if (exists) {
-    console.log(`Product with ID ${product.id} already exists.`);
-    return;
-  }
-  products.push(product);
-  console.log(`Product "${product.name}" added.`);
-}
+
 
 
 function listProducts() {
@@ -93,7 +71,6 @@ function listProducts() {
     console.log(`ID: ${p.id} | ${p.name} - $${p.price} | Stock: ${p.stock} | Category: ${p.category}`);
   });
 }
-
 
 function updateProduct(id, updatedFields) {
   const product = products.find(p => p.id === id);
@@ -115,25 +92,15 @@ function deleteProduct(id) {
   console.log(`Product "${deleted.name}" deleted.`);
 }
 
- 
 
-
-
-// Exporting all
 module.exports = {
-  // Product CRUD
-  createProduct,
   listProducts,
   updateProduct,
   deleteProduct,
-
-  // Cart
   addToCart,
   viewCart,
   checkout,
   showInventory,
-
-  // Useful for testing
   cart,
   products
 };
