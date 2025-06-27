@@ -2,6 +2,7 @@
 const products = require('./product'); 
 let cart = [];
 
+//mane function
 
 function addToCart(productId, quantity) {
   const product = products.find(p => p.id === productId);
@@ -24,7 +25,34 @@ function addToCart(productId, quantity) {
 
   console.log(`${quantity} x ${product.name} added to cart.`);
 }
+function listProducts() {
+  console.log('Product List:');
+  products.forEach(p => {
+    console.log(`ID: ${p.id} | ${p.name} - $${p.price} | Stock: ${p.stock} | Category: ${p.category}`);
+  });
+}
 
+function updateProduct(id, updatedFields) {
+  const product = products.find(p => p.id === id);
+  if (!product) {
+    console.log(`Product with ID ${id} not found.`);
+    return;
+  }
+  Object.assign(product, updatedFields);
+  console.log(`Product ID ${id} updated.`);
+}
+
+function deleteProduct(id) {
+  const index = products.findIndex(p => p.id === id);
+  if (index === -1) {
+    console.log(`Product with ID ${id} not found.`);
+    return;
+  }
+  const deleted = products.splice(index, 1)[0];
+  console.log(`Product "${deleted.name}" deleted.`);
+}
+
+// extra functions
 function viewCart() {
   console.log('Cart Contents:');
   cart.forEach(item => {
@@ -65,32 +93,7 @@ function showInventory() {
 
 
 
-function listProducts() {
-  console.log('Product List:');
-  products.forEach(p => {
-    console.log(`ID: ${p.id} | ${p.name} - $${p.price} | Stock: ${p.stock} | Category: ${p.category}`);
-  });
-}
 
-function updateProduct(id, updatedFields) {
-  const product = products.find(p => p.id === id);
-  if (!product) {
-    console.log(`Product with ID ${id} not found.`);
-    return;
-  }
-  Object.assign(product, updatedFields);
-  console.log(`Product ID ${id} updated.`);
-}
-
-function deleteProduct(id) {
-  const index = products.findIndex(p => p.id === id);
-  if (index === -1) {
-    console.log(`Product with ID ${id} not found.`);
-    return;
-  }
-  const deleted = products.splice(index, 1)[0];
-  console.log(`Product "${deleted.name}" deleted.`);
-}
 
 
 module.exports = {
